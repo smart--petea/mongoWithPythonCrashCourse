@@ -5,9 +5,11 @@ import (
     "log"
     "os"
     "strings"
+
+     "go.mongodb.org/mongo-driver/mongo"
 )
 
-func Run() {
+func Run(client *mongo.Client) {
     commandReader := bufio.NewReader(os.Stdin)
 
     for {
