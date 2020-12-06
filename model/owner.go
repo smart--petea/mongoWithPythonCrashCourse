@@ -6,7 +6,13 @@ import (
 )
 
 type Owner struct {
+    ID primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
     RegisteredDate time.Time `json:"registered_date" bson:"registered_date"`
-    Name string `json:"name" bson:"name" validate:"required"`
-    Email string `json:"email" bson:"email" validate:"required,email"`
+    Name string `json:"name" bson:"name"`
+    Email string `json:"email" bson:"email"`
+}
+
+type CreateOwnerInput struct {
+    Name string `validate:"required"`
+    Email string `validate:"required,email"`
 }

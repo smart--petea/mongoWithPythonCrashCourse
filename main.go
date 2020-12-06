@@ -2,6 +2,8 @@ package main
 
 import (
     "tutorial/command"
+    "tutorial/infrastructure"
+
     "context"
     "log"
      "go.mongodb.org/mongo-driver/mongo"
@@ -22,5 +24,7 @@ func main() {
         }
     }()
 
-    command.Run(client)
+    environment := infrastructure.NewEnvironment(client)
+
+    command.Run(environment)
 }

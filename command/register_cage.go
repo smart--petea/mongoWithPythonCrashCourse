@@ -1,3 +1,7 @@
 package command
 
-func RegisterCage(args []string) {}
+import (
+    "tutorial/infrastructure"
+)
+
+func RegisterCage(env *infrastructure.Environment, args []string) {}

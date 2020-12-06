@@ -1,3 +1,7 @@
 package command
 
-func LogIntoAccount(args []string) {}
+import (
+    "tutorial/infrastructure"
+)
+
+func LogIntoAccount(env *infrastructure.Environment, args []string) {}

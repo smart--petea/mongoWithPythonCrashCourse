@@ -1,3 +1,7 @@
 package command
 
-func ExitApp(args []string) {}
+import (
+    "tutorial/infrastructure"
+)
+
+func ExitApp(env *infrastructure.Environment, args []string) {}

@@ -6,10 +6,10 @@ import (
     "os"
     "strings"
 
-     "go.mongodb.org/mongo-driver/mongo"
+    "tutorial/infrastructure"
 )
 
-func Run(client *mongo.Client) {
+func Run(env *infrastructure.Environment) {
     commandReader := bufio.NewReader(os.Stdin)
 
     for {
@@ -23,29 +23,29 @@ func Run(client *mongo.Client) {
 
         switch cmd {
         case "c":
-            CreateAccount(arrFullCmd)
+            CreateAccount(env, arrFullCmd)
         case "a":
-            CreateAccount(arrFullCmd)
+            CreateAccount(env, arrFullCmd)
         case "l":
-            LogIntoAccount(arrFullCmd)
+            LogIntoAccount(env, arrFullCmd)
         case "y":
-            ListCages(arrFullCmd)
+            ListCages(env, arrFullCmd)
         case "r":
-            RegisterCage(arrFullCmd)
+            RegisterCage(env, arrFullCmd)
         case "u":
-            UpdateAvailibility(arrFullCmd)
+            UpdateAvailibility(env, arrFullCmd)
         case "v":
-            ViewBookings(arrFullCmd)
+            ViewBookings(env, arrFullCmd)
         case "m":
-            ChangeMode(arrFullCmd)
+            ChangeMode(env, arrFullCmd)
         case "x", "bye", "exit", "exit()":
-            ExitApp(arrFullCmd)
+            ExitApp(env, arrFullCmd)
         case "?":
-            ShowCommands(arrFullCmd)
+            ShowCommands(env, arrFullCmd)
         case "":
-            None(arrFullCmd)
+            None(env, arrFullCmd)
         default:
-            UnknownCommand(arrFullCmd)
+            UnknownCommand(env, arrFullCmd)
         }
     }
 }

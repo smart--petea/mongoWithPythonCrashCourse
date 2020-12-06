@@ -1,3 +1,7 @@
 package command
 
-func UnknownCommand(args []string) {}
+import (
+    "tutorial/infrastructure"
+)
+
+func UnknownCommand(env *infrastructure.Environment, args []string) {}

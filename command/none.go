@@ -1,3 +1,7 @@
 package command
 
-func None(args []string) {}
+import (
+    "tutorial/infrastructure"
+)
+
+func None(env *infrastructure.Environment, args []string) {}

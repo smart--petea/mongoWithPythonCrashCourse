@@ -1,3 +1,7 @@
 package command
 
-func ChangeMode(args []string) {}
+import (
+    "tutorial/infrastructure"
+)
+
+func ChangeMode(env *infrastructure.Environment, args []string) {}

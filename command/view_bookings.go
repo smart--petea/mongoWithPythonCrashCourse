@@ -1,3 +1,7 @@
 package command
 
-func ViewBookings(args []string) {}
+import (
+    "tutorial/infrastructure"
+)
+
+func ViewBookings(env *infrastructure.Environment, args []string) {}

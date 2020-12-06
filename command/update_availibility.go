@@ -1,3 +1,7 @@
 package command
 
-func UpdateAvailibility(args []string) {}
+import (
+    "tutorial/infrastructure"
+)
+
+func UpdateAvailibility(env *infrastructure.Environment, args []string) {}

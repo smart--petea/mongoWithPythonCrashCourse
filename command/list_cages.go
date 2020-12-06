@@ -1,3 +1,7 @@
 package command
 
-func ListCages(args []string) {}
+import (
+    "tutorial/infrastructure"
+)
+
+func ListCages(env *infrastructure.Environment, args []string) {}
