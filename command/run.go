@@ -46,7 +46,7 @@ func Run(env *infrastructure.Environment) {
     printInfo()
 
     for {
-        fmt.Print("> ")
+        printPrompt()
         cmd, args, err = readCommand(commandReader)
         if err != nil {
             log.Fatalln(err)
@@ -109,4 +109,10 @@ func printInfo() {
 
     fmt.Println()
     fmt.Println()
+}
+
+func printPrompt() {
+    fmt.Print("\033[33m") //yellow
+    fmt.Print("> ")
+    fmt.Print("\033[37m") //white
 }
