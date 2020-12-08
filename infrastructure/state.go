@@ -1,7 +1,11 @@
 package infrastructure
 
+import (
+    "tutorial/model"
+)
+
 type State struct {
-    ActiveAccount string
+    ActiveAccount *model.Owner
 }
 
 func NewState() *State {

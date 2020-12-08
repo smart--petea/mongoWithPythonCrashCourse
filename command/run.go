@@ -46,7 +46,7 @@ func Run(env *infrastructure.Environment) {
     printInfo()
 
     for {
-        printPrompt()
+        printPrompt(env)
         cmd, args, err = readCommand(commandReader)
         if err != nil {
             log.Fatalln(err)
@@ -111,8 +111,14 @@ func printInfo() {
     fmt.Println()
 }
 
-func printPrompt() {
+func printPrompt(env *infrastructure.Environment) {
     fmt.Print("\033[33m") //yellow
-    fmt.Print("> ")
+
+    if env.State.ActiveAccount == nil {
+        fmt.Print("> ")
+    } else {
+        fmt.Printf("%s> ", env.State.ActiveAccount.Name)
+    }
+
     fmt.Print("\033[37m") //white
 }

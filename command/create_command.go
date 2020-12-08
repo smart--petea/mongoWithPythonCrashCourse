@@ -5,7 +5,6 @@ import (
     "tutorial/infrastructure"
     "tutorial/model"
 
-    "fmt"
     "log"
 )
 
@@ -25,5 +24,5 @@ func CreateAccount(env *infrastructure.Environment, args []string) {
         log.Fatal(err)
     }
 
-    fmt.Println(owner)
+    env.State.ActiveAccount = owner
 }
