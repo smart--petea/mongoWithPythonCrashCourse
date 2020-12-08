@@ -15,8 +15,7 @@ func (service *Service) CreateAccount(input *model.CreateOwnerInput) (*model.Own
         Email: input.Email,
     } 
 
-    collection := service.Client.Database("snake_bnb").Collection("owners")
-    res, err := collection.InsertOne(context.Background(), owner)
+    res, err := service.Collection("owners").InsertOne(context.Background(), owner)
     if err != nil {
         return nil, err
     }

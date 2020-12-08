@@ -9,12 +9,13 @@ import (
     "errors"
 
     "tutorial/infrastructure"
+    "tutorial/print"
 )
 
 func Run(env *infrastructure.Environment) {
     commandReader := bufio.NewReader(os.Stdin)
 
-    printLineOfStars()
+    print.LineOfStars()
 
     fmt.Println()
     fmt.Println("Welcome to Snake BnB!")
@@ -43,10 +44,10 @@ func Run(env *infrastructure.Environment) {
     fmt.Println()
     fmt.Println()
 
-    printInfo()
+    print.Info()
 
     for {
-        printPrompt(env)
+        print.Prompt(env.State.ActiveAccount)
         cmd, args, err = readCommand(commandReader)
         if err != nil {
             log.Fatalln(err)
@@ -79,10 +80,6 @@ func Run(env *infrastructure.Environment) {
     }
 }
 
-func printLineOfStars() {
-    fmt.Println(strings.Repeat("*", 50))
-}
-
 func readCommand(commandReader *bufio.Reader) (string, []string, error) {
         strCmdWithArgs, err := commandReader.ReadString('\n')
         if err != nil {
@@ -94,31 +91,3 @@ func readCommand(commandReader *bufio.Reader) (string, []string, error) {
 
         return string(cmd), cmdWithArgs[1:], nil
 } 
-
-func printInfo() {
-    fmt.Println("What action would you like to take:")
-    fmt.Println("[C]reate an [a]ccount")
-    fmt.Println("[L]ogin ton tyour account")
-    fmt.Println("List [y]our cages")
-    fmt.Println("[R]egister a cage")
-    fmt.Println("[U]pdate cage availablity")
-    fmt.Println("[V]iew your bookings")
-    fmt.Println("Change [M]ode (guest or host)")
-    fmt.Println("e[X]it app")
-    fmt.Println("[?] Help (this info)")
-
-    fmt.Println()
-    fmt.Println()
-}
-
-func printPrompt(env *infrastructure.Environment) {
-    fmt.Print("\033[33m") //yellow
-
-    if env.State.ActiveAccount == nil {
-        fmt.Print("> ")
-    } else {
-        fmt.Printf("%s> ", env.State.ActiveAccount.Name)
-    }
-
-    fmt.Print("\033[37m") //white
-}
