@@ -5,6 +5,15 @@ import (
     "go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+//todo add validators
+type CreateCageInput struct {
+    Name string `validate:"required"`
+    Price float32 `validate:"required"`
+    SquareMeters float32 `validate:"required"`
+    IsCarpeted bool `validate:"required"`
+    AllowDangerousSnakes bool `validate:"required"`
+}
+
 type Cage struct {
     ID primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
     RegisteredDate time.Time `json:"registered_date" bson:"registered_date" validate:"required"`

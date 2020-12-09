@@ -4,7 +4,7 @@ import (
     "fmt"
 )
 
-func Input(prompt string) string {
+func InputString(prompt string) string {
     var val string
     fmt.Print(prompt)
     fmt.Scanf("%s", &val)
