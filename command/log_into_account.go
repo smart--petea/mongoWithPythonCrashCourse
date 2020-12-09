@@ -5,13 +5,13 @@ import (
     "tutorial/helper"
     "tutorial/print"
 
-     "go.mongodb.org/mongo-driver/mongo"
+    "go.mongodb.org/mongo-driver/mongo"
 )
 
 func LogIntoAccount(env *infrastructure.Environment, args []string) {
     print.HeadLine("LOGIN")
 
-    email := helper.ReadFromInput("What is your email: ")
+    email := helper.Input("What is your email: ")
 
     owner, err := env.Dataservice.FindAccountByEmail(email)
     if err == mongo.ErrNoDocuments {

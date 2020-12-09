@@ -1,20 +1,17 @@
 package command
 
 import (
-    "bufio"
     "log"
-    "os"
     "strings"
     "fmt"
     "errors"
 
     "tutorial/infrastructure"
     "tutorial/print"
+    "tutorial/helper"
 )
 
 func Run(env *infrastructure.Environment) {
-    commandReader := bufio.NewReader(os.Stdin)
-
     print.LineOfStars()
 
     fmt.Println()
@@ -26,7 +23,7 @@ func Run(env *infrastructure.Environment) {
     fmt.Println()
     fmt.Println("Are you a [g]uest or [h]ost?")
 
-    cmd, args, err := readCommand(commandReader)
+    cmd, args, err := readCommand()
     if err != nil {
         log.Fatalln(err)
     }
@@ -40,15 +37,14 @@ func Run(env *infrastructure.Environment) {
         default:
             log.Fatalln(errors.New("wrong command. Please, start once again."))
     }
-    fmt.Println(strings.Repeat("*", 19) + " Welcome " + who + " " + strings.Repeat("*", 19))
-    fmt.Println()
+    print.HeadLine("Welcome " + who)
     fmt.Println()
 
     print.Info()
 
     for {
         print.Prompt(env.State.ActiveAccount)
-        cmd, args, err = readCommand(commandReader)
+        cmd, args, err = readCommand()
         if err != nil {
             log.Fatalln(err)
         }
@@ -80,11 +76,8 @@ func Run(env *infrastructure.Environment) {
     }
 }
 
-func readCommand(commandReader *bufio.Reader) (string, []string, error) {
-        strCmdWithArgs, err := commandReader.ReadString('\n')
-        if err != nil {
-           return "", nil, err
-        }
+func readCommand() (string, []string, error) {
+        strCmdWithArgs := helper.Input("")
 
         cmdWithArgs := strings.Split(strCmdWithArgs, " ")
         cmd := strings.TrimSpace(cmdWithArgs[0])

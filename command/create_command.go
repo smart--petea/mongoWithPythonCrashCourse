@@ -10,10 +10,12 @@ import (
 )
 
 func CreateAccount(env *infrastructure.Environment, args []string) {
+    print.HeadLine("REGISTER")
+
     var input model.CreateOwnerInput
 
-    input.Name = helper.ReadFromInput("What is your name: ")
-    input.Email = helper.ReadFromInput("What is your email: ")
+    input.Name = helper.Input("What is your name: ")
+    input.Email = helper.Input("What is your email: ")
 
     err := env.Validate.Struct(input)
     if err != nil {

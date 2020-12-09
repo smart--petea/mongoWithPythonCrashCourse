@@ -6,6 +6,7 @@ import (
 )
 
 func HeadLine(title string) {
-    stars := strings.Repeat("*", 25)
+    startLen := (60 - len(title)) / 2
+    stars := strings.Repeat("*", startLen)
     fmt.Printf( stars + " " + title + " " + stars + "\n")
 }
