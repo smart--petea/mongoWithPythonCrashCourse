@@ -11,7 +11,7 @@ import (
 func LogIntoAccount(env *infrastructure.Environment, args []string) {
     print.HeadLine("LOGIN")
 
-    email := helper.Input("What is your email: ")
+    email := helper.InputString("What is your email: ")
 
     owner, err := env.Dataservice.FindAccountByEmail(email)
     if err == mongo.ErrNoDocuments {

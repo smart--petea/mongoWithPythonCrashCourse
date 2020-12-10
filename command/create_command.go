@@ -14,8 +14,8 @@ func CreateAccount(env *infrastructure.Environment, args []string) {
 
     var input model.CreateOwnerInput
 
-    input.Name = helper.Input("What is your name: ")
-    input.Email = helper.Input("What is your email: ")
+    input.Name = helper.InputString("What is your name: ")
+    input.Email = helper.InputString("What is your email: ")
 
     err := env.Validate.Struct(input)
     if err != nil {

@@ -77,7 +77,7 @@ func Run(env *infrastructure.Environment) {
 }
 
 func readCommand() (string, []string, error) {
-        strCmdWithArgs := helper.Input("")
+        strCmdWithArgs := helper.InputString("")
 
         cmdWithArgs := strings.Split(strCmdWithArgs, " ")
         cmd := strings.TrimSpace(cmdWithArgs[0])
