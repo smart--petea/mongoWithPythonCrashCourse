@@ -10,9 +10,14 @@ type Owner struct {
     RegisteredDate time.Time `json:"registered_date" bson:"registered_date"`
     Name string `json:"name" bson:"name"`
     Email string `json:"email" bson:"email"`
+    CageIDs []primitive.ObjectID `json:"cage_ids" bson:"cage_ids"`
 }
 
 type CreateOwnerInput struct {
     Name string `validate:"required"`
     Email string `validate:"required,email"`
+}
+
+func (o *Owner) AppendCage(c *Cage) {
+    o.CageIDs = append(o.CageIDs, c.ID)
 }
