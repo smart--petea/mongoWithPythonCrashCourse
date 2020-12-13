@@ -5,8 +5,6 @@ import (
     "tutorial/print"
     "tutorial/helper"
     "tutorial/model"
-
-    "fmt"
 )
 
 func RegisterCage(env *infrastructure.Environment, args []string) {
@@ -43,5 +41,5 @@ func RegisterCage(env *infrastructure.Environment, args []string) {
         return
     }
 
-    fmt.Println(cage)
+    print.Success("Registered new cage with id %s", cage.ID.String())
 }
