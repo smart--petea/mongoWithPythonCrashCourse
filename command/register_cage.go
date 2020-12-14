@@ -20,7 +20,8 @@ func RegisterCage(env *infrastructure.Environment, args []string) {
     input.IsCarpeted = helper.InputBool("Is it carpeted [y, n]?", "y", "n")
     //input.HasToys = helper.InputBool("Is it carpeted [y, n]?", "y", "n")
     input.AllowDangerousSnakes = helper.InputBool("Can you host venomous snakes [y, n]?", "y", "n")
-    input.Name = helper.InputString("Give your cage a name")
+    input.Name = helper.InputString("Give your cage a name?")
+    input.Price = helper.InputFloat("How much are you charging?")
 
     err := env.Validate.Struct(input)
     if err != nil {

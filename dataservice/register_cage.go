@@ -15,6 +15,7 @@ func (service *Service) RegisterCage(owner *model.Owner, input *model.CreateCage
         SquareMeters: input.SquareMeters,
         IsCarpeted: input.IsCarpeted,
         AllowDangerousSnakes: input.AllowDangerousSnakes,
+        Price: input.Price,
     } 
 
     res, err := service.Collection("cages").InsertOne(context.Background(), cage)

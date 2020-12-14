@@ -8,7 +8,7 @@ import (
 //todo add validators
 type CreateCageInput struct {
     Name string `validate:"required"`
-    //Price float32 `validate:"required"`
+    Price float32 `validate:"required"`
     SquareMeters float32 `validate:"required"`
     IsCarpeted bool `validate:"required"`
     AllowDangerousSnakes bool `validate:"required"`
