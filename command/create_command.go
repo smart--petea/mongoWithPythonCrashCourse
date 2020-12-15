@@ -10,8 +10,6 @@ import (
 )
 
 func CreateAccount(env *infrastructure.Environment, args []string) {
-    print.HeadLine("REGISTER")
-
     var input model.CreateOwnerInput
 
     input.Name = helper.InputString("What is your name: ")

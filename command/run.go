@@ -51,13 +51,19 @@ func Run(env *infrastructure.Environment) {
 
         switch cmd {
         case "c", "C", "a", "A":
-            CreateAccount(env, args)
+            CommandType(CreateAccount).
+            Header("REGISTER")(env, args)
         case "l", "L":
-            LogIntoAccount(env, args)
+            CommandType(LogIntoAccount).
+            Header("LOGIN")(env, args)
         case "y", "Y":
-            helper.ShouldBeLoggedIn(ListCages)(env, args)
+            CommandType(ListCages).
+            Header("Your cages").
+            ShouldBeLoggedIn()(env, args)
         case "r", "R":
-            helper.ShouldBeLoggedIn(RegisterCage)(env, args)
+            CommandType(RegisterCage).
+            Header("REGISTER CAGE").
+            ShouldBeLoggedIn()(env, args)
         case "u", "U":
             UpdateAvailibility(env, args)
         case "v", "V":

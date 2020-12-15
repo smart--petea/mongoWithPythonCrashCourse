@@ -6,8 +6,6 @@ import (
 )
 
 func ListCages(env *infrastructure.Environment, args []string) {
-    print.HeadLine("Your cages")
-
     cages, err := env.Dataservice.FindCagesForUser(env.State.ActiveAccount) 
     if err != nil {
         print.Error(err.Error())

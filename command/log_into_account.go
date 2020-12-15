@@ -9,8 +9,6 @@ import (
 )
 
 func LogIntoAccount(env *infrastructure.Environment, args []string) {
-    print.HeadLine("LOGIN")
-
     email := helper.InputString("What is your email: ")
 
     owner, err := env.Dataservice.FindAccountByEmail(email)
