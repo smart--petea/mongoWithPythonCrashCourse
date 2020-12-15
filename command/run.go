@@ -55,9 +55,9 @@ func Run(env *infrastructure.Environment) {
         case "l", "L":
             LogIntoAccount(env, args)
         case "y", "Y":
-            ListCages(env, args)
+            helper.ShouldBeLoggedIn(ListCages)(env, args)
         case "r", "R":
-            RegisterCage(env, args)
+            helper.ShouldBeLoggedIn(RegisterCage)(env, args)
         case "u", "U":
             UpdateAvailibility(env, args)
         case "v", "V":

@@ -10,11 +10,6 @@ import (
 func RegisterCage(env *infrastructure.Environment, args []string) {
     print.HeadLine("REGISTER CAGE")
 
-    if env.State.ActiveAccount == nil {
-        print.Error("You must login first to register a cage.")
-        return
-    }
-
     var input model.CreateCageInput
     input.SquareMeters = helper.InputFloat("How many square meters is the cage? ")
     input.IsCarpeted = helper.InputBool("Is it carpeted [y, n]?", "y", "n")

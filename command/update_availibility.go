@@ -4,4 +4,5 @@ import (
     "tutorial/infrastructure"
 )
 
-func UpdateAvailibility(env *infrastructure.Environment, args []string) {}
+func UpdateAvailibility(env *infrastructure.Environment, args []string) {
+}
