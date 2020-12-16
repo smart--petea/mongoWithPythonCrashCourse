@@ -65,7 +65,9 @@ func Run(env *infrastructure.Environment) {
             Header("REGISTER CAGE").
             ShouldBeLoggedIn()(env, args)
         case "u", "U":
-            UpdateAvailibility(env, args)
+            CommandType(UpdateAvailibility).
+            Header("Add available date").
+            ShouldBeLoggedIn()(env, args)
         case "v", "V":
             ViewBookings(env, args)
         case "m", "M":

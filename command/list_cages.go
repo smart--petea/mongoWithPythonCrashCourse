@@ -15,7 +15,7 @@ func ListCages(env *infrastructure.Environment, args []string) {
     print.Success("You have %d cages", len(cages))
 
     for i, cage := range cages {
-        print.Success(" %d. %s is %f meters.", i, cage.Name, cage.SquareMeters)
+        print.Success(" %d. %s is %f meters.", (i + 1), cage.Name, cage.SquareMeters)
 
         for _, b := range cage.Bookings {
             bookedLabel := "YES"
@@ -24,8 +24,8 @@ func ListCages(env *infrastructure.Environment, args []string) {
             }
             print.Success(
                 "\t\t* Booking: %s, %d days, booked? %s",
-                b.CheckInDate,
-                b.CheckInDate.Sub(b.CheckOutDate).Hours() / 24,
+                b.CheckInDate.Format("2006-01-02"),
+                int(b.CheckOutDate.Sub(b.CheckInDate).Hours() / 24),
                 bookedLabel,
             )
         }

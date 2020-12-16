@@ -24,3 +24,11 @@ type Cage struct {
     AllowDangerousSnakes bool `json:"allow_dangerous_snakes" bson:"allow_dangerous_snakes"`
     Bookings []Booking `json:"bookings" bson:"bookings"`
 }
+
+func (c *Cage) Collection() string {
+    return "cages"
+}
+
+func (c *Cage) GetID() primitive.ObjectID {
+    return c.ID
+}
