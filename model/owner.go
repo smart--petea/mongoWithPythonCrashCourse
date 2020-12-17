@@ -18,6 +18,14 @@ type CreateOwnerInput struct {
     Email string `validate:"required,email"`
 }
 
+func (input *CreateOwnerInput) ToEntity() *Owner {
+    return &Owner{
+        RegisteredDate: time.Now(),
+        Name: input.Name,
+        Email: input.Email,
+    } 
+}
+
 func (o *Owner) AppendCage(c *Cage) {
     o.CageIDs = append(o.CageIDs, c.ID)
 }

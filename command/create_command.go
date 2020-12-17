@@ -32,13 +32,12 @@ func CreateAccount(env *infrastructure.Environment, args []string) {
         return
     }
 
-    owner, err = env.Dataservice.CreateAccount(&input)
+    owner = input.ToEntity()
+    err = env.Dataservice.Save(owner)
     if err != nil {
         print.Error("Something wrong %s", err.Error())
         return
     }
-
-    fmt.Printf("%s+v\n", owner)
 
     env.State.ActiveAccount = owner
     print.Success("Created a new account with id %s", owner.ID.String())

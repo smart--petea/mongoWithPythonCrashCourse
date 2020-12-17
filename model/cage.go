@@ -14,6 +14,17 @@ type CreateCageInput struct {
     AllowDangerousSnakes bool
 }
 
+func (input *CreateCageInput) ToEntity() *Cage {
+    return &Cage{
+        RegisteredDate: time.Now(),
+        Name: input.Name,
+        SquareMeters: input.SquareMeters,
+        IsCarpeted: input.IsCarpeted,
+        AllowDangerousSnakes: input.AllowDangerousSnakes,
+        Price: input.Price,
+    } 
+}
+
 type Cage struct {
     ID primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
     RegisteredDate time.Time `json:"registered_date" bson:"registered_date"`

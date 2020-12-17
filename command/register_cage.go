@@ -22,7 +22,8 @@ func RegisterCage(env *infrastructure.Environment, args []string) {
         return
     }
 
-    cage, err := env.Dataservice.RegisterCage(env.State.ActiveAccount, &input)
+    cage := input.ToEntity()
+    err = env.Dataservice.Save(cage)
     if err != nil {
         print.Error("Something wrong %s", err.Error())
         return
