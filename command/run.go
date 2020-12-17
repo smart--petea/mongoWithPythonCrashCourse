@@ -72,6 +72,10 @@ func Run(env *infrastructure.Environment) {
             ViewBookings(env, args)
         case "m", "M":
             ChangeMode(env, args)
+        case "s", "S":
+            CommandType(AddASnake).
+            Header("Add a snake").
+            ShouldBeLoggedIn()(env, args)
         case "x", "bye", "exit", "exit()":
             ExitApp(env, args)
         case "?":
