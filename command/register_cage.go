@@ -29,7 +29,7 @@ func RegisterCage(env *infrastructure.Environment, args []string) {
     }
 
     env.State.ActiveAccount.AppendCage(cage)
-    err = env.Dataservice.UpdateOwner(env.State.ActiveAccount)
+    err = env.Dataservice.Update(env.State.ActiveAccount)
     if err != nil {
         print.Error("Something wrong %s", err.Error())
         return

@@ -21,3 +21,11 @@ type CreateOwnerInput struct {
 func (o *Owner) AppendCage(c *Cage) {
     o.CageIDs = append(o.CageIDs, c.ID)
 }
+
+func (o *Owner) Collection() string {
+    return "owners"
+}
+
+func (o *Owner) GetID() primitive.ObjectID {
+    return o.ID
+}
