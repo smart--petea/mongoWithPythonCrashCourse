@@ -4,8 +4,6 @@ import (
     "tutorial/model"
 
     "time"
-    "context"
-    "go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func (service *Service) CreateAccount(input *model.CreateOwnerInput) (*model.Owner, error) {
@@ -15,12 +13,10 @@ func (service *Service) CreateAccount(input *model.CreateOwnerInput) (*model.Own
         Email: input.Email,
     } 
 
-    res, err := service.Collection("owners").InsertOne(context.Background(), owner)
+    err := service.Save(&owner)
     if err != nil {
         return nil, err
     }
-
-    owner.ID = res.InsertedID.(primitive.ObjectID)
 
     return &owner, nil
 }

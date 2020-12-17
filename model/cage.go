@@ -32,3 +32,7 @@ func (c *Cage) Collection() string {
 func (c *Cage) GetID() primitive.ObjectID {
     return c.ID
 }
+
+func (c *Cage) SetID(id primitive.ObjectID) {
+    c.ID = id
+}

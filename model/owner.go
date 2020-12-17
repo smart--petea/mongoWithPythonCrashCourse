@@ -29,3 +29,7 @@ func (o *Owner) Collection() string {
 func (o *Owner) GetID() primitive.ObjectID {
     return o.ID
 }
+
+func (o *Owner) SetID(id primitive.ObjectID) {
+    o.ID = id
+}

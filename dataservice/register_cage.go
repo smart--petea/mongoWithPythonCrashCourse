@@ -4,8 +4,6 @@ import (
     "tutorial/model"
 
     "time"
-    "context"
-    "go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func (service *Service) RegisterCage(owner *model.Owner, input *model.CreateCageInput) (*model.Cage, error) {
@@ -18,12 +16,10 @@ func (service *Service) RegisterCage(owner *model.Owner, input *model.CreateCage
         Price: input.Price,
     } 
 
-    res, err := service.Collection("cages").InsertOne(context.Background(), cage)
+    err := service.Save(&cage)
     if err != nil {
         return nil, err
     }
-
-    cage.ID = res.InsertedID.(primitive.ObjectID)
 
     return &cage, nil
 }

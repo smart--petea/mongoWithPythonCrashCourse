@@ -7,6 +7,7 @@ import (
     "tutorial/print"
 
      "go.mongodb.org/mongo-driver/mongo"
+     "fmt"
 )
 
 func CreateAccount(env *infrastructure.Environment, args []string) {
@@ -36,6 +37,8 @@ func CreateAccount(env *infrastructure.Environment, args []string) {
         print.Error("Something wrong %s", err.Error())
         return
     }
+
+    fmt.Printf("%s+v\n", owner)
 
     env.State.ActiveAccount = owner
     print.Success("Created a new account with id %s", owner.ID.String())

@@ -6,5 +6,6 @@ import (
 
 type EntityInt interface {
     Collection() string
-    GetID() primitive.ObjectID 
+    GetID() primitive.ObjectID
+    SetID(primitive.ObjectID)
 }
