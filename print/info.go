@@ -14,7 +14,7 @@ func Info(mode infrastructure.Mode) {
         HeadLine("HOST MODE")
 
         fmt.Println("What action would you like to take:")
-        fmt.Println("[C]reate an [a]ccount")
+        fmt.Println("[C]reate an account")
         fmt.Println("[L]ogin to your account")
         fmt.Println("List [y]our cages")
         fmt.Println("[R]egister a cage")
@@ -28,7 +28,7 @@ func Info(mode infrastructure.Mode) {
         HeadLine("GUEST MODE")
 
         fmt.Println("What action would you like to take:")
-        fmt.Println("[C]reate an [a]ccount")
+        fmt.Println("[C]reate an account")
         fmt.Println("[L]ogin to your account")
         fmt.Println("[B]ook a cage")
         fmt.Println("[A]dd a snake")

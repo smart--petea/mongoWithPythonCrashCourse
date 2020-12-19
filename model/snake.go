@@ -9,7 +9,7 @@ type CreateSnakeInput struct {
     Species string `validate:"required"`
     Length float32 `validate:"required"`
     Name string `validate:"required"`
-    IsVenomous bool `validate:"required"`              
+    IsVenomous bool
 }
 
 func (input *CreateSnakeInput) ToEntity() *Snake {

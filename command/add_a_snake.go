@@ -5,6 +5,8 @@ import (
     "tutorial/helper"
     "tutorial/print"
     "tutorial/model"
+
+    "fmt"
 )
 
 func AddASnake(env *infrastructure.Environment, args []string) {
@@ -39,6 +41,8 @@ func AddASnake(env *infrastructure.Environment, args []string) {
         print.Error("Something wrong %s", err.Error())
         return
     }
+
+    fmt.Printf("%+v\n", env.State.ActiveAccount)
 
     print.Success("Created %s with id %s", snake.Name, snake.ID.String())
 }

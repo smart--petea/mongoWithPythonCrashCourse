@@ -31,18 +31,31 @@ func Run(env *infrastructure.Environment) {
         }
 
         switch cmd {
-        case "c", "C", "a", "A":
+        case "c", "C":
             CommandType(CreateAccount).
             Header("REGISTER")(env, args)
+
+        case "a", "A":
+            CommandType(AddASnake).
+            Header("Add a snake").
+            ShouldBeLoggedIn()(env, args)
 
         case "l", "L":
             CommandType(LogIntoAccount).
             Header("LOGIN")(env, args)
 
         case "y", "Y":
-            CommandType(ListCages).
-            Header("Your cages").
-            ShouldBeLoggedIn()(env, args)
+            if env.State.Mode == infrastructure.MODE_HOST {
+                CommandType(ListCages).
+                Header("Your cages").
+                ShouldBeLoggedIn()(env, args)
+            }
+
+            if env.State.Mode == infrastructure.MODE_GUEST {
+                CommandType(ViewYourSnakes).
+                Header("Your cages").
+                ShouldBeLoggedIn()(env, args)
+            }
 
         case "r", "R":
             CommandType(RegisterCage).
@@ -59,11 +72,6 @@ func Run(env *infrastructure.Environment) {
 
         case "m", "M":
             CommandType(ChangeMode)(env, args)
-
-        case "s", "S":
-            CommandType(AddASnake).
-            Header("Add a snake").
-            ShouldBeLoggedIn()(env, args)
 
         case "f", "F":
             CommandType(ViewYourSnakes).

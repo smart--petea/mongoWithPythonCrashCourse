@@ -8,7 +8,7 @@ import (
 )
 
 func (service *Service) FindSnakesForUser(owner *model.Owner) ([]model.Snake, error) {
-    filter := bson.M{"_id": bson.M{ "$in": owner.CageIDs}}
+    filter := bson.M{"_id": bson.M{ "$in": owner.SnakeIDs}}
     cursor, err := service.Collection("snakes").Find(context.Background(), filter)
     if err != nil {
         return nil, err
