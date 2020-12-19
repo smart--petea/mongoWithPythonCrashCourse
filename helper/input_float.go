@@ -2,12 +2,16 @@ package helper
 
 import (
     "fmt"
+    "strconv"
 )
 
-func InputFloat(prompt string) float32 {
-    var val float32
+func InputFloat(prompt string) (float64, error) {
     fmt.Print(prompt)
-    fmt.Scanf("%f", &val)
 
-    return val
+    text, err := input()
+    if err != nil {
+        return 0, err
+    }
+
+    return strconv.ParseFloat(text, 32)
 }

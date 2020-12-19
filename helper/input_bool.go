@@ -5,14 +5,17 @@ import (
     "strings"
 )
 
-func InputBool(prompt, yes, no string) bool {
-    var val string
+func InputBool(prompt, yes, no string) (bool, error) {
     fmt.Print(prompt)
-    fmt.Scanf("%s", &val)
 
-    if strings.ToUpper(val) == strings.ToUpper(yes) {
-        return true
+    text, err := input()
+    if err != nil {
+        return false, err
     }
 
-    return false
+    if strings.ToUpper(text) == strings.ToUpper(text) {
+        return true, nil
+    }
+
+    return false, nil
 }

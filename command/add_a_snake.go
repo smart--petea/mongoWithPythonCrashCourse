@@ -5,24 +5,43 @@ import (
     "tutorial/helper"
     "tutorial/print"
     "tutorial/model"
-
-    "fmt"
 )
 
 func AddASnake(env *infrastructure.Environment, args []string) {
-    var input model.CreateSnakeInput
+    var (
+        input model.CreateSnakeInput
+        err error
+    )
 
-    input.Name = helper.InputString("What is your snake's name? ")
+    input.Name, err = helper.InputString("What is your snake's name? ")
+    if err != nil {
+        print.Error(err.Error())
+        return
+    }
     if len(input.Name) == 0 {
         print.Error("canelled")
         return
     }
 
-    input.Length = helper.InputFloat("How long is your snake (in meters)? ")
-    input.Species = helper.InputString("Species? ")
-    input.IsVenomous = helper.InputBool("Is your snake venomous [y]es, [n]o? ", "y", "n")
+    input.Length, err = helper.InputFloat("How long is your snake (in meters)? ")
+    if err != nil {
+        print.Error(err.Error())
+        return
+    }
 
-    err := env.Validate.Struct(input)
+    input.Species, err = helper.InputString("Species? ")
+    if err != nil {
+        print.Error(err.Error())
+        return
+    }
+
+    input.IsVenomous, err = helper.InputBool("Is your snake venomous [y]es, [n]o? ", "y", "n")
+    if err != nil {
+        print.Error(err.Error())
+        return
+    }
+
+    err = env.Validate.Struct(input)
     if err != nil {
         print.Error("Something wrong %s", err.Error())
         return
@@ -41,8 +60,6 @@ func AddASnake(env *infrastructure.Environment, args []string) {
         print.Error("Something wrong %s", err.Error())
         return
     }
-
-    fmt.Printf("%+v\n", env.State.ActiveAccount)
 
     print.Success("Created %s with id %s", snake.Name, snake.ID.String())
 }

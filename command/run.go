@@ -94,7 +94,10 @@ func Run(env *infrastructure.Environment) {
 }
 
 func readCommand() (string, []string, error) {
-        strCmdWithArgs := helper.InputString("")
+        strCmdWithArgs, err := helper.InputString("")
+        if err != nil {
+            return "", []string{}, err
+        }
 
         cmdWithArgs := strings.Split(strCmdWithArgs, " ")
         cmd := strings.TrimSpace(cmdWithArgs[0])

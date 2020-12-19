@@ -7,9 +7,13 @@ import (
 )
 
 func ChangeMode(env *infrastructure.Environment, args []string) {
-    mode := helper.InputString("Are you a [g]uest or [h]ost?")
+    mode, err := helper.InputString("Are you a [g]uest or [h]ost?")
+    if err != nil {
+        print.Error(err.Error())
+        return
+    }
 
-    err := infrastructure.ValidateMode(mode)
+    err = infrastructure.ValidateMode(mode)
     if err != nil {
         print.Error(err.Error())
 

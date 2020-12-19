@@ -8,15 +8,42 @@ import (
 )
 
 func RegisterCage(env *infrastructure.Environment, args []string) {
-    var input model.CreateCageInput
-    input.SquareMeters = helper.InputFloat("How many square meters is the cage? ")
-    input.IsCarpeted = helper.InputBool("Is it carpeted [y, n]?", "y", "n")
-    //input.HasToys = helper.InputBool("Is it carpeted [y, n]?", "y", "n")
-    input.AllowDangerousSnakes = helper.InputBool("Can you host venomous snakes [y, n]?", "y", "n")
-    input.Name = helper.InputString("Give your cage a name?")
-    input.Price = helper.InputFloat("How much are you charging?")
+    var (
+        input model.CreateCageInput
+        err error
+    )
+    input.SquareMeters, err = helper.InputFloat("How many square meters is the cage? ")
+    if err != nil {
+        print.Error(err.Error())
+        return
+    }
 
-    err := env.Validate.Struct(input)
+    input.IsCarpeted, err = helper.InputBool("Is it carpeted [y, n]?", "y", "n")
+    if err != nil {
+        print.Error(err.Error())
+        return
+    }
+
+    //input.HasToys = helper.InputBool("Is it carpeted [y, n]?", "y", "n")
+    input.AllowDangerousSnakes, err = helper.InputBool("Can you host venomous snakes [y, n]?", "y", "n")
+    if err != nil {
+        print.Error(err.Error())
+        return
+    }
+
+    input.Name, err = helper.InputString("Give your cage a name?")
+    if err != nil {
+        print.Error(err.Error())
+        return
+    }
+
+    input.Price, err = helper.InputFloat("How much are you charging?")
+    if err != nil {
+        print.Error(err.Error())
+        return
+    }
+
+    err = env.Validate.Struct(input)
     if err != nil {
         print.Error("Something wrong %s", err.Error())
         return

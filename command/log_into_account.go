@@ -9,7 +9,11 @@ import (
 )
 
 func LogIntoAccount(env *infrastructure.Environment, args []string) {
-    email := helper.InputString("What is your email: ")
+    email, err := helper.InputString("What is your email: ")
+    if err != nil {
+        print.Error(err.Error())
+        return
+    }
 
     owner, err := env.Dataservice.FindAccountByEmail(email)
     if err == mongo.ErrNoDocuments {

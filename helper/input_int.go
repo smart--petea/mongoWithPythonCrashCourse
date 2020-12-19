@@ -2,12 +2,16 @@ package helper
 
 import (
     "fmt"
+    "strconv"
 )
 
-func InputInt(prompt string) int {
-    var val int
+func InputInt(prompt string) (int, error) {
     fmt.Print(prompt)
-    fmt.Scanf("%d", &val)
 
-    return val
+    text, err := input()
+    if err != nil {
+        return 0, err
+    }
+
+    return strconv.Atoi(text)
 }

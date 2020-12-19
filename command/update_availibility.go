@@ -11,7 +11,11 @@ import (
 
 func UpdateAvailibility(env *infrastructure.Environment, args []string) {
     ListCages(env, args)
-    cageNumber := helper.InputInt("Enter cage number: ")
+    cageNumber, err := helper.InputInt("Enter cage number: ")
+    if err != nil {
+        print.Error(err.Error())
+        return
+    }
 
     cages, err := env.Dataservice.FindCagesForUser(env.State.ActiveAccount) 
     if err != nil {
@@ -22,14 +26,23 @@ func UpdateAvailibility(env *infrastructure.Environment, args []string) {
     selectedCage := cages[cageNumber - 1]
     print.Success("Selected cage %s", selectedCage.Name)
 
-    checkInDateStr := helper.InputString("Enter available date [yyyy-mm-dd]: ")
+    checkInDateStr, err := helper.InputString("Enter available date [yyyy-mm-dd]: ")
+    if err != nil {
+        print.Error(err.Error())
+        return
+    }
+
     checkInDate, err := time.Parse("2006-01-02", checkInDateStr)
     if err != nil {
         print.Error(err.Error())
         return
     }
 
-    days := helper.InputInt("How many days is this block of time? ")
+    days, err := helper.InputInt("How many days is this block of time? ")
+    if err != nil {
+        print.Error(err.Error())
+        return
+    }
 
     booking := model.Booking{}
     booking.CheckInDate = checkInDate
