@@ -18,6 +18,7 @@ func (input *CreateSnakeInput) ToEntity() *Snake {
         Name: input.Name,
         Length: input.Length,
         IsVenomous: input.IsVenomous,
+        Species: input.Species,
     } 
 }
 
