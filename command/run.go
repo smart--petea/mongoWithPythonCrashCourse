@@ -4,7 +4,6 @@ import (
     "log"
     "strings"
     "fmt"
-    "errors"
 
     "tutorial/infrastructure"
     "tutorial/print"
@@ -21,30 +20,12 @@ func Run(env *infrastructure.Environment) {
     fmt.Println("[g] Book a cage for your snake")
     fmt.Println("[h] Offer extra cage space")
     fmt.Println()
-    fmt.Println("Are you a [g]uest or [h]ost?")
 
-    cmd, args, err := readCommand()
-    if err != nil {
-        log.Fatalln(err)
-    }
-
-    who := ""
-    switch cmd {
-        case "g": 
-            who = "guest"
-        case "h":
-            who = "host"
-        default:
-            log.Fatalln(errors.New("wrong command. Please, start once again."))
-    }
-    print.HeadLine("Welcome " + who)
-    fmt.Println()
-
-    print.Info()
+    CommandType(ChangeMode)(env, []string{})
 
     for {
         print.Prompt(env.State.ActiveAccount)
-        cmd, args, err = readCommand()
+        cmd, args, err := readCommand()
         if err != nil {
             log.Fatalln(err)
         }
@@ -77,7 +58,7 @@ func Run(env *infrastructure.Environment) {
             ViewBookings(env, args)
 
         case "m", "M":
-            ChangeMode(env, args)
+            CommandType(ChangeMode)(env, args)
 
         case "s", "S":
             CommandType(AddASnake).

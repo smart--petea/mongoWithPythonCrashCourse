@@ -11,7 +11,7 @@ type Owner struct {
     Name string `json:"name" bson:"name"`
     Email string `json:"email" bson:"email"`
     CageIDs  []primitive.ObjectID `json:"cage_ids" bson:"cage_ids"`
-    SnakeIDs []primitive.ObjectID `json:"cage_ids" bson:"cage_ids"`
+    SnakeIDs []primitive.ObjectID `json:"snake_ids" bson:"snake_ids"`
 }
 
 type CreateOwnerInput struct {
