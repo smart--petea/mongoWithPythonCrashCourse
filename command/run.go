@@ -53,35 +53,51 @@ func Run(env *infrastructure.Environment) {
         case "c", "C", "a", "A":
             CommandType(CreateAccount).
             Header("REGISTER")(env, args)
+
         case "l", "L":
             CommandType(LogIntoAccount).
             Header("LOGIN")(env, args)
+
         case "y", "Y":
             CommandType(ListCages).
             Header("Your cages").
             ShouldBeLoggedIn()(env, args)
+
         case "r", "R":
             CommandType(RegisterCage).
             Header("REGISTER CAGE").
             ShouldBeLoggedIn()(env, args)
+
         case "u", "U":
             CommandType(UpdateAvailibility).
             Header("Add available date").
             ShouldBeLoggedIn()(env, args)
+
         case "v", "V":
             ViewBookings(env, args)
+
         case "m", "M":
             ChangeMode(env, args)
+
         case "s", "S":
             CommandType(AddASnake).
             Header("Add a snake").
             ShouldBeLoggedIn()(env, args)
+
+        case "f", "F":
+            CommandType(ViewYourSnakes).
+            Header("Your snakes").
+            ShouldBeLoggedIn()(env, args)
+
         case "x", "bye", "exit", "exit()":
             ExitApp(env, args)
+
         case "?":
             ShowCommands(env, args)
+
         case "":
             None(env, args)
+
         default:
             UnknownCommand(env, args)
         }
