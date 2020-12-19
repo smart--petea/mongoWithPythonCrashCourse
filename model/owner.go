@@ -10,7 +10,8 @@ type Owner struct {
     RegisteredDate time.Time `json:"registered_date" bson:"registered_date"`
     Name string `json:"name" bson:"name"`
     Email string `json:"email" bson:"email"`
-    CageIDs []primitive.ObjectID `json:"cage_ids" bson:"cage_ids"`
+    CageIDs  []primitive.ObjectID `json:"cage_ids" bson:"cage_ids"`
+    SnakeIDs []primitive.ObjectID `json:"cage_ids" bson:"cage_ids"`
 }
 
 type CreateOwnerInput struct {
@@ -24,6 +25,10 @@ func (input *CreateOwnerInput) ToEntity() *Owner {
         Name: input.Name,
         Email: input.Email,
     } 
+}
+
+func (o *Owner) AppendSnake(s *Snake) {
+    o.SnakeIDs = append(o.SnakeIDs, s.ID)
 }
 
 func (o *Owner) AppendCage(c *Cage) {

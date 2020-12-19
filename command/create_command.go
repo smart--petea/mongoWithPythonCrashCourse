@@ -7,7 +7,6 @@ import (
     "tutorial/print"
 
      "go.mongodb.org/mongo-driver/mongo"
-     "fmt"
 )
 
 func CreateAccount(env *infrastructure.Environment, args []string) {

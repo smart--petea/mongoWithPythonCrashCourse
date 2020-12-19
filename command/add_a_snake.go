@@ -4,20 +4,27 @@ import (
     "tutorial/infrastructure"
     "tutorial/helper"
     "tutorial/print"
+    "tutorial/model"
 )
 
 func AddASnake(env *infrastructure.Environment, args []string) {
-    var input CreateSnakeInput
+    var input model.CreateSnakeInput
 
-    input.Name := helper.InputString("What is your snake's name? "
+    input.Name = helper.InputString("What is your snake's name? ")
     if len(input.Name) == 0 {
         print.Error("canelled")
         return
     }
 
-    input = helper.InputFloat("How long is your snake (in meters)? ")
+    input.Length = helper.InputFloat("How long is your snake (in meters)? ")
     input.Species = helper.InputString("Species? ")
     input.IsVenomous = helper.InputBool("Is your snake venomous [y]es, [n]o? ", "y", "n")
+
+    err := env.Validate.Struct(input)
+    if err != nil {
+        print.Error("Something wrong %s", err.Error())
+        return
+    }
 
     snake := input.ToEntity()
     err = env.Dataservice.Save(snake)
@@ -26,5 +33,12 @@ func AddASnake(env *infrastructure.Environment, args []string) {
         return
     }
 
-    print.Success("Created %s with id %s", snake.Name, snake.ID.ToString())
+    env.State.ActiveAccount.AppendSnake(snake)
+    err = env.Dataservice.Update(env.State.ActiveAccount)
+    if err != nil {
+        print.Error("Something wrong %s", err.Error())
+        return
+    }
+
+    print.Success("Created %s with id %s", snake.Name, snake.ID.String())
 }

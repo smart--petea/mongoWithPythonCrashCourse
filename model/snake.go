@@ -7,12 +7,12 @@ import (
 
 type CreateSnakeInput struct {
     Species string `validate:"required"`
-    Lenght float32 `validate:"required"`
+    Length float32 `validate:"required"`
     Name string `validate:"required"`
     IsVenomous bool `validate:"required"`              
 }
 
-func (input *CreateSnakeInput) ToEntity() *Cage {
+func (input *CreateSnakeInput) ToEntity() *Snake {
     return &Snake{
         RegisteredDate: time.Now(),
         Name: input.Name,
@@ -25,7 +25,7 @@ type Snake struct {
     ID             primitive.ObjectID `json:"id"              bson:"_id,omitempty"`
     RegisteredDate time.Time          `json:"registered_date" bson:"registered_date"`
     Species        string             `json:"species"         bson:"species"`
-    Lenght         float32            `json:"length"          bson:"length"`
+    Length         float32            `json:"length"          bson:"length"`
     Name           string             `json:"name"            bson:"name"`
     IsVenomous     bool               `json:"is_venomous"     bson:"is_venomous"`
 }
