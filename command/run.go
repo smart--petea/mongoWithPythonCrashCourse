@@ -40,6 +40,11 @@ func Run(env *infrastructure.Environment) {
             Header("Add a snake").
             ShouldBeLoggedIn()(env, args)
 
+        case "b", "B":
+            CommandType(BookACage).
+            Header("Book a cage").
+            ShouldBeLoggedIn()(env, args)
+
         case "l", "L":
             CommandType(LogIntoAccount).
             Header("LOGIN")(env, args)

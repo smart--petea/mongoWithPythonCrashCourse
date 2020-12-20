@@ -1,6 +1,7 @@
 package model
 
 import (
+    "fmt"
     "time"
     "go.mongodb.org/mongo-driver/bson/primitive"
 )
@@ -41,4 +42,20 @@ func (s *Snake) GetID() primitive.ObjectID {
 
 func (s *Snake) SetID(id primitive.ObjectID) {
     s.ID = id
+}
+
+func (s *Snake) ToLoopStringLine(idx int) string {
+    venomous := "not"
+    if s.IsVenomous {
+        venomous = ""
+    }
+
+    return fmt.Sprintf(
+        " %d. %s is a %s that is %fm  and is %s venomous.",
+        (idx + 1),
+        s.Name,
+        s.Species,
+        s.Length,
+        venomous,
+    )
 }
