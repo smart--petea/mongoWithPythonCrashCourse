@@ -4,6 +4,9 @@ import (
     "tutorial/infrastructure"
     "tutorial/print"
     "tutorial/helper"
+    "tutorial/model"
+
+    "time"
 )
 
 func BookACage(env *infrastructure.Environment, args []string) {
@@ -18,8 +21,8 @@ func BookACage(env *infrastructure.Environment, args []string) {
         return
     }
 
-    print.Print("Let's start by finding available cages.")
-    checkinText, err := helper.InputString("Check-in date [yyyy-mm-dd]")
+    print.Print("Let's start by finding available cages.\n")
+    checkinText, err := helper.InputString("Check-in date [yyyy-mm-dd]? ")
     if err != nil {
         print.Error(err.Error())
         return
@@ -31,7 +34,7 @@ func BookACage(env *infrastructure.Environment, args []string) {
         return
     }
 
-    checkoutText, err := helper.InputString("Check-out date [yyyy-mm-dd]")
+    checkoutText, err := helper.InputString("Check-out date [yyyy-mm-dd]? ")
     if err != nil {
         print.Error(err.Error())
         return
@@ -49,7 +52,7 @@ func BookACage(env *infrastructure.Environment, args []string) {
     }
 
     for idx, snake := range snakes {
-            print.Print(snake.ToLoopStringLine(i))
+            print.Success(snake.ToLoopStringLine(idx) + "\n")
     }
 
     chosenSnakeIdx, err := helper.InputInt("Which snake do you want to book (number)?")
@@ -59,7 +62,7 @@ func BookACage(env *infrastructure.Environment, args []string) {
     }
 
     snake := snakes[chosenSnakeIdx - 1]
-    cages, err := env.Dataservice.GetAvailableCages(checkinDate, checkoutDate, snake)
+    cages, err := env.Dataservice.GetAvailableCages(checkinDate, checkoutDate, &snake)
     if err != nil {
         print.Error(err.Error())
         return
@@ -71,15 +74,14 @@ func BookACage(env *infrastructure.Environment, args []string) {
     }
 
     print.Print("There are %d cages available in that time.", len(cages))
-    //todo has_toys
-    for idx, c := cages {
+    for idx, c := range cages {
         carpeted := "no"
-        if cage.IsCarpeted {
+        if c.IsCarpeted {
             carpeted = "yes"
         }
 
         print.Print(
-            " %d. %s %dm carpeted: %s",
+            " %d. %s %dm carpeted: %s\n",
             idx + 1,
             c.Name,
             c.SquareMeters,
@@ -96,16 +98,16 @@ func BookACage(env *infrastructure.Environment, args []string) {
     cage := cages[chosenCageIdx - 1]
     var booking *model.Booking
     for _, b := range cage.Bookings {
-        if b.CheckinDate <= checkinDate && b.CheckoutDate >= checkoutDate && b.GuestSnakeId == nil {
-            booking = b
+        if b.CheckInDate.Before(checkinDate) && b.CheckOutDate.After(checkoutDate) && b.GuestSnakeId.IsZero() {
+            booking = &b
             break
         }
     }
 
-    booking.GuestOwnerId = env.State.env.State.ActiveAccount.ID
+    booking.GuestOwnerId = env.State.ActiveAccount.ID
     booking.GuestSnakeId = snake.ID
     booking.BookedDate = time.Now()
-    err := env.Dataservice.Update(cage)
+    err = env.Dataservice.Update(&cage)
     if err != nil {
         print.Error(err.Error())
         return

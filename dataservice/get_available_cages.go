@@ -5,6 +5,7 @@ import (
 
     "context"
     "go.mongodb.org/mongo-driver/bson"
+    "go.mongodb.org/mongo-driver/mongo/options"
     "time"
 )
 
@@ -13,16 +14,18 @@ func (service *Service) GetAvailableCages(checkinDate, checkoutDate time.Time, s
 
     filter := bson.M{
         "square_meters": bson.M{ "$gte": minSize},
+        "bookings.check_in_date": bson.M{"$lte": checkinDate},
+        "bookings.check_out_date": bson.M{"$gte": checkoutDate},
     }
+
+    findOptions := options.Find()
+    findOptions.SetSort(bson.D{{"price", 1}, {"square_meters", -1}})
 
     if snake.IsVenomous {
         filter["allow_dangerous_snakes"] = true
     }
 
-    //todo $unwind for checkin and checkout
-    //todo order by price, -square_meters
-
-    cursor, err := service.Collection("cages").Find(context.Background(), filter)
+    cursor, err := service.Collection("cages").Find(context.Background(), filter, findOptions)
     if err != nil {
         return nil, err
     }
@@ -35,9 +38,9 @@ func (service *Service) GetAvailableCages(checkinDate, checkoutDate time.Time, s
 
     var finalCages []model.Cage
     for _, c := range cages {
-        for b := range c.Bookings {
-            if b.CheckInDate <= checkInDate && b.CheckOutDate >= checkOutDate && b.GuestSnakeId == nil {
-                finalCages = append(finalCages, cage)
+        for _, b := range c.Bookings {
+            if b.CheckInDate.Before(checkinDate) && b.CheckOutDate.After(checkoutDate) && b.GuestSnakeId.IsZero() {
+                finalCages = append(finalCages, c)
             }
         }
     }

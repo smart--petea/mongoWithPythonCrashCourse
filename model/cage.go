@@ -47,7 +47,3 @@ func (c *Cage) GetID() primitive.ObjectID {
 func (c *Cage) SetID(id primitive.ObjectID) {
     c.ID = id
 }
-
-func (c *Cage) ToLoopStringLine(idx int) string {
-
-}
