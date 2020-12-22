@@ -73,7 +73,7 @@ func BookACage(env *infrastructure.Environment, args []string) {
         return
     }
 
-    print.Print("There are %d cages available in that time.", len(cages))
+    print.Print("There are %d cages available in that time.\n", len(cages))
     for idx, c := range cages {
         carpeted := "no"
         if c.IsCarpeted {
@@ -81,7 +81,7 @@ func BookACage(env *infrastructure.Environment, args []string) {
         }
 
         print.Print(
-            " %d. %s %dm carpeted: %s\n",
+            " %d. %s %fm carpeted: %s\n",
             idx + 1,
             c.Name,
             c.SquareMeters,
@@ -97,9 +97,10 @@ func BookACage(env *infrastructure.Environment, args []string) {
 
     cage := cages[chosenCageIdx - 1]
     var booking *model.Booking
-    for _, b := range cage.Bookings {
+    for i := range cage.Bookings {
+        b := &cage.Bookings[i]
         if b.CheckInDate.Before(checkinDate) && b.CheckOutDate.After(checkoutDate) && b.GuestSnakeId.IsZero() {
-            booking = &b
+            booking = b
             break
         }
     }
@@ -114,7 +115,7 @@ func BookACage(env *infrastructure.Environment, args []string) {
     }
 
     print.Success(
-        "Successfully booked %s for  at $%f/night", 
+        "Successfully booked cage %s for snake %s at $%f/night", 
         cage.Name,
         snake.Name,
         cage.Price,
