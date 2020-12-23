@@ -99,14 +99,14 @@ func BookACage(env *infrastructure.Environment, args []string) {
     var booking *model.Booking
     for i := range cage.Bookings {
         b := &cage.Bookings[i]
-        if b.CheckInDate.Before(checkinDate) && b.CheckOutDate.After(checkoutDate) && b.GuestSnakeId.IsZero() {
+        if b.CheckInDate.Before(checkinDate) && b.CheckOutDate.After(checkoutDate) && b.GuestSnakeID.IsZero() {
             booking = b
             break
         }
     }
 
-    booking.GuestOwnerId = env.State.ActiveAccount.ID
-    booking.GuestSnakeId = snake.ID
+    booking.GuestOwnerID = env.State.ActiveAccount.ID
+    booking.GuestSnakeID = snake.ID
     booking.BookedDate = time.Now()
     err = env.Dataservice.Update(&cage)
     if err != nil {

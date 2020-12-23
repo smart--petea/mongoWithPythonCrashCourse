@@ -39,7 +39,7 @@ func (service *Service) GetAvailableCages(checkinDate, checkoutDate time.Time, s
     var finalCages []model.Cage
     for _, c := range cages {
         for _, b := range c.Bookings {
-            if b.CheckInDate.Before(checkinDate) && b.CheckOutDate.After(checkoutDate) && b.GuestSnakeId.IsZero() {
+            if b.CheckInDate.Before(checkinDate) && b.CheckOutDate.After(checkoutDate) && b.GuestSnakeID.IsZero() {
                 finalCages = append(finalCages, c)
             }
         }

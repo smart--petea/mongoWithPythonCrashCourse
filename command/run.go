@@ -73,7 +73,9 @@ func Run(env *infrastructure.Environment) {
             ShouldBeLoggedIn()(env, args)
 
         case "v", "V":
-            ViewBookings(env, args)
+            CommandType(ViewBookings).
+            Header("Your bookings").
+            ShouldBeLoggedIn()(env, args)
 
         case "m", "M":
             CommandType(ChangeMode)(env, args)
