@@ -20,19 +20,35 @@ func ViewBookings(env *infrastructure.Environment, args []string) {
         snakesMap[snakes[i].ID] = &snakes[i]
     }
 
-    bookings, err := env.Dataservice.GetBookingsForUser(env.State.ActiveAccount) 
+    cages, err := env.Dataservice.GetBookedCagesForUser(env.State.ActiveAccount) 
     if err != nil {
         print.Error(err.Error())
         return 
     }
 
-    print.Success("You have %d bookings.\n", len(bookings))
-    for _, b := range bookings {
-        print.Success(" * Snake: %s is booked at  from %s for %f days",
-                snakesMap[b.GuestSnakeID].Name,
-                //todo cage name,
-                b.CheckInDate.Format("2006-01-02"),
-                b.CheckOutDate.Sub(b.CheckInDate).Hours() / 24,
-        )
+    var countBookings int
+    for _, c := range cages {
+        for i := range c.Bookings {
+            if c.Bookings[i].GuestOwnerID == env.State.ActiveAccount.ID {
+                countBookings = countBookings + 1
+            }
+        }
+    }
+
+    print.Success("You have %d bookings.\n", countBookings)
+    for _, c := range cages {
+        for i := range c.Bookings {
+            b := c.Bookings[i]
+            if b.GuestOwnerID != env.State.ActiveAccount.ID {
+                continue
+            }
+
+            print.Success(" * Snake: %s is booked at %s from %s for %f days",
+                    snakesMap[b.GuestSnakeID].Name,
+                    c.Name,
+                    b.CheckInDate.Format("2006-01-02"),
+                    b.CheckOutDate.Sub(b.CheckInDate).Hours() / 24,
+            )
+        }
     }
 }
